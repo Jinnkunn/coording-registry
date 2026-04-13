@@ -1,0 +1,47 @@
+name: Validate Plugin PR
+
+on:
+  pull_request:
+    paths:
+      - "plugins/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need parent commit for version increment check
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Detect changed plugins
+        id: changed
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 -- plugins/ | grep metadata.json | xargs -I{} dirname {} | sort -u)
+          if [ -z "$CHANGED" ]; then
+            echo "dirs=" >> $GITHUB_OUTPUT
+            echo "No plugin metadata changes detected."
+          else
+            echo "dirs<<EOF" >> $GITHUB_OUTPUT
+            echo "$CHANGED" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            echo "Changed plugins: $CHANGED"
+          fi
+
+      - name: Validate changed plugins
+        if: steps.changed.outputs.dirs != ''
+        run: |
+          set -e
+          while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
+            echo "--- Validating: $dir ---"
+            node scripts/validate.mjs "$dir"
+          done <<< "${{ steps.changed.outputs.dirs }}"
+
+      - name: Validate all plugins (full check)
+        run: node scripts/validate.mjs

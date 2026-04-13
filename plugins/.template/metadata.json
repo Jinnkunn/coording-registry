@@ -1,0 +1,12 @@
+{
+  "id": "your-plugin-id",
+  "name": "Your Plugin Name",
+  "author": "Your Name",
+  "version": "1.0.0",
+  "description": "Short description of what your plugin does.",
+  "downloadUrl": "https://github.com/you/your-plugin/releases/download/v1.0.0/your-plugin.zip",
+  "sha256": "",
+  "homepage": "https://github.com/you/your-plugin",
+  "coordingVersionRange": "^0.1.0",
+  "releaseNotesUrl": "https://github.com/you/your-plugin/releases/tag/v1.0.0"
+}

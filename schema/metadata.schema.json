@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PluginMetadata",
+  "description": "Registry metadata for a coording plugin",
+  "type": "object",
+  "required": ["id", "name", "version", "downloadUrl"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "description": "Kebab-case plugin identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable plugin name"
+    },
+    "author": {
+      "type": "string",
+      "description": "Author name or handle"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.]+)?(\\+[a-zA-Z0-9.]+)?$",
+      "description": "Semver version string"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of what the plugin does"
+    },
+    "downloadUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the plugin .zip archive"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 hex digest of the .zip file"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "Plugin homepage or repo URL"
+    },
+    "coordingVersionRange": {
+      "type": "string",
+      "description": "Semver range for compatible coording versions, e.g. ^0.1.0"
+    },
+    "publishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 publish timestamp"
+    },
+    "releaseNotesUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to release notes for this version"
+    }
+  },
+  "additionalProperties": false
+}
