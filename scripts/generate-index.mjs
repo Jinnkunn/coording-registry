@@ -1,11 +1,6 @@
 #!/usr/bin/env node
-/**
- * generate-index.mjs — regenerate index.json from all plugins/*/metadata.json.
- *
- * Output: index.json at the repo root (deployed to GitHub Pages).
- * Format matches what the coording app expects:
- * { schemaVersion: "2", plugins: [...] }
- */
+// generate-index.mjs -- regenerate index.json from all plugins/*/metadata.json
+// Output: index.json at repo root, deployed to GitHub Pages.
 
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";

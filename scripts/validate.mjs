@@ -1,19 +1,6 @@
 #!/usr/bin/env node
-/**
- * validate.mjs — validate plugin metadata entries.
- *
- * Usage:
- *   node scripts/validate.mjs                    # validate all plugins
- *   node scripts/validate.mjs plugins/my-plugin  # validate one plugin
- *
- * Checks:
- * 1. metadata.json is valid JSON matching the schema
- * 2. Plugin directory name matches metadata.id
- * 3. Semver is valid
- * 4. downloadUrl is reachable (HEAD request)
- * 5. If sha256 is provided, downloads and verifies the hash
- * 6. If previous version exists (via git), semver must increment
- */
+// validate.mjs -- validate plugin metadata entries
+// Usage: node scripts/validate.mjs [plugins/my-plugin]
 
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join, basename } from "node:path";
